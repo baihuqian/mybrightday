@@ -261,7 +261,7 @@ class Client:
         self.br.find_element_by_xpath("//img[@data-bind = 'click:loginGoogle']").click()
 
         # Focus on the google auth popup.
-        self.switch_windows()
+        #self.switch_windows()
 
         # Enter email.
         email = self.br.find_element_by_id("identifierId")
