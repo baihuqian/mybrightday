@@ -274,6 +274,8 @@ class Client:
         email.send_keys(input("Enter email: "))
         self.br.find_element_by_id("identifierNext").click()
         self.sleep()
+        self.br.save_screenshot("state/after_login.png")
+        self.dump_screenshot_db()
 
         # Enter password.
         passwd = self.br.find_element_by_css_selector("input[type='password'][name='password']")
