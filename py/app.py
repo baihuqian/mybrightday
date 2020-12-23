@@ -256,7 +256,7 @@ class Client:
     def do_login(self):
         # Navigate to login page.
         self.info("Navigating to login page.")
-        self.br.find_element_by_id("login-button").click()
+        #self.br.find_element_by_id("login-button").click()
         self.br.find_element_by_xpath("//div[@data-bind = 'click: chooseParent']").click()
         self.br.find_element_by_xpath("//img[@data-bind = 'click:loginGoogle']").click()
 
