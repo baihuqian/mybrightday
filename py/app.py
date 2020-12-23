@@ -364,7 +364,7 @@ class Client:
         try:
             self.load_cookies_db()
         except FileNotFoundError:
-           self.navigate_url(self.ROOT_URL)
+           self.navigate_url(self.HOME_URL)
            self.do_login()
            self.dump_cookies_db()
            self.load_cookies_db()
