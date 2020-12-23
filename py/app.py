@@ -187,14 +187,17 @@ class Client:
         self.info(all_windows)
         try:
             current_window = set([self.br.current_window_handle])
+            self.info(self.br.title)
             self.info(current_window)
             other_window = (all_windows - current_window).pop()
             self.info(other_window)
             self.br.switch_to.window(other_window)
+            self.sleep()
             self.info(self.br.title)
         except:
             current_window = self.br.window_handles[0]
             self.br.switch_to.window(current_window)
+            self.sleep()
             self.info(self.br.title)
             
         self.info(current_window)
