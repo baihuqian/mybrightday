@@ -268,15 +268,15 @@ class Client:
 
         # Focus on the google auth popup.
         self.switch_windows()
+        self.br.save_screenshot("state/after_login.png")
+        self.dump_screenshot_db()
 
         # Enter email.
         email = self.br.find_element_by_id("identifierId")
         email.send_keys(input("Enter email: "))
         self.br.find_element_by_id("identifierNext").click()
         self.sleep()
-        self.br.save_screenshot("state/after_login.png")
-        self.dump_screenshot_db()
-
+  
         # Enter password.
         passwd = self.br.find_element_by_css_selector("input[type='password'][name='password']")
         passwd.send_keys(getpass("Enter password:"))
