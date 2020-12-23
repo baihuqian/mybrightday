@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:focal
 MAINTAINER dashah@gmail.com
 
 RUN apt-get update && apt-get upgrade -y
