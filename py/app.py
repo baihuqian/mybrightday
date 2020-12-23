@@ -187,7 +187,7 @@ class Client:
         self.info(all_windows)
         try:
             current_window = set([self.br.current_window_handle])
-            self.info(current_window)
+            self.info(current_window.title)
             other_window = (all_windows - current_window).pop()
             self.br.switch_to.window(other_window)
         except:
@@ -261,7 +261,7 @@ class Client:
         self.br.find_element_by_xpath("//img[@data-bind = 'click:loginGoogle']").click()
 
         # Focus on the google auth popup.
-        #self.switch_windows()
+        self.switch_windows()
 
         # Enter email.
         email = self.br.find_element_by_id("identifierId")
