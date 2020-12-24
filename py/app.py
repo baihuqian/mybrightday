@@ -279,8 +279,7 @@ class Client:
         self.dump_screenshot_db()
 
         # Enter email.
-        self.wait.until(EC.presence_of_element_located(By.ID, "identifierId"))
-
+        
         email = self.br.find_element_by_id("identifierId")
         email.send_keys(input("Enter email: "))
         self.br.find_element_by_id("identifierNext").click()
