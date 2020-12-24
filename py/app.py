@@ -103,7 +103,7 @@ class Client:
         #google="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
         #google='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:46.0) Gecko/20100101 Firefox/46.0'
 
-        options.add_argument(f'user-agent={google}')
+        #options.add_argument(f'user-agent={google}')
         options.add_experimental_option("useAutomationExtension", False)
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_argument("no-default-browser-check")
