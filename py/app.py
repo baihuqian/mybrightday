@@ -255,13 +255,18 @@ class Client:
 
             start_string="&earliest_event_time="+str(start_time_val)
             end_string="&latest_event_time="+str(int(time.mktime(end_time.timetuple())))
+            device = os.getenv("DEVICE")
 
-            num_events="&num_events=300&client=dashboard"
+            num_events="&num_events=300&client=dashboard&device="+device
 
             url = self.LIST_BASE_URL+start_string+end_string+num_events
             self.info(url)
             try:
-                resp = requests.get(url,cookies=self.req_cookies)
+                coolCookie = {os.getenv("CK_NAME"):os.getenv("CK_VALUE")}
+                headers = {'user-agent': 'Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;), Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;) (gzip)', 'x-titanium-id':'c5a5bca5-43c7-4b8f-b82a-fe1de0e4793c'}
+      
+
+                resp = requests.get(url,cookies=coolCookie, headers=headers)
                 if resp.status_code != 200:
                     msg = 'Error (%r) downloading %r'
                     raise DownloadError(msg % (resp.status_code, url))
