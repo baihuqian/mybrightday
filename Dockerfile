@@ -10,7 +10,7 @@ RUN apt-get install -qyy \
     libfreetype6-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev \
     tcl8.6-dev tk8.6-dev python-tk
 
-RUN pip3 install --upgrade selenium pyyaml requests Flask Jinja2 Werkzeug gunicorn pymongo piexif boto3 Pillow
+RUN pip3 install --upgrade selenium pyyaml requests Flask Jinja2 Werkzeug gunicorn pymongo piexif boto3 Pillow fake-useragent
 #RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz
 #RUN tar -xvzf geckodriver-v0.28.0-linux64.tar.gz
 #RUN rm geckodriver-v0.28.0-linux64.tar.gz
