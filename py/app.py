@@ -209,6 +209,7 @@ class Client:
             self.sleep()
             self.info(self.br.title)
         except:
+            self.info("window not found")
             current_window = self.br.window_handles[0]
             self.br.switch_to.window(current_window)
             self.sleep()
