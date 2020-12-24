@@ -101,8 +101,9 @@ class Client:
     def __enter__(self):
         options = Options()
         ua = UserAgent(cache=False)
+        google=ua.google
         options.add_argument("--headless")
-        options.add_argument(f'user-agent={ua.chrome}')
+        options.add_argument(f'user-agent={google}')
         options.binary_location = "/app/.apt/usr/bin/google-chrome"
 
         self.info("Starting browser")
@@ -197,8 +198,8 @@ class Client:
             for win in all_windows:
                 self.br.switch_to.window(win)
                 self.info(self.br.title)
-                #if self.br.title.startsWith('Sign in - Google Accounts'):
-                #    return
+                if self.br.title.startsWith('Sign in - Google Accounts'):
+                    return None
             #current_window = set([self.br.current_window_handle])
             #self.info(self.br.title)
             #self.info(current_window)
