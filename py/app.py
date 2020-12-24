@@ -417,7 +417,7 @@ class Client:
             'Referer': 'https://www.tadpoles.com/parents',
             'cookie': coolCookie
         }
-        #headers = {'user-agent': 'Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;), Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;) (gzip)', 'x-titanium-id':'c5a5bca5-43c7-4b8f-b82a-fe1de0e4793c'}
+
         resp = requests.get(url, headers=HEADERS, stream=True)
         if resp.status_code != 200:
             msg = 'Error (%r) downloading %r'
@@ -426,7 +426,7 @@ class Client:
         filename_parts = ['/',year, month, resp.headers['Content-Disposition'].split("filename=")[1]]
         filename = join(*filename_parts)
         
-        if mime_type == 'image/jpeg':
+        if mime_type == 'image/jpeg' or mime_type == 'image/png':
             self.debug("Writing image" + filename)
             file = self.write_exif(resp, timestamp)
             self.write_s3(file,filename, mime_type, True)
