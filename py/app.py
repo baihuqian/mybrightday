@@ -99,9 +99,11 @@ class Client:
 
     def __enter__(self):
         options = Options()
-        google="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
-        options.headless = True
+        #google="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
+        google="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+
         options.add_argument(f'user-agent={google}')
+        options.headless = True
         options.binary_location = "/app/.apt/usr/bin/google-chrome"
 
         self.info("Starting browser")
@@ -282,7 +284,7 @@ class Client:
         # Focus on the google auth popup.
         self.switch_windows()
         try:
-            WebDriverWait(self.br, 100).until(EC.visibility_of_element_located((By.ID, "identifierId")))
+            WebDriverWait(self.br, 30).until(EC.visibility_of_element_located((By.ID, "identifierId")))
         except Exception as exc:
             self.exception(exc)
 
