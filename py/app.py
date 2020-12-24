@@ -102,7 +102,7 @@ class Client:
         options = Options()
         ua = UserAgent(cache=False)
         google=ua.google
-        options.add_argument("--headless")
+        options.headless = True
         options.add_argument(f'user-agent={google}')
         options.binary_location = "/app/.apt/usr/bin/google-chrome"
 
