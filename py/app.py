@@ -19,6 +19,9 @@ import json
 import requests
 import lxml.html
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options 
@@ -101,6 +104,7 @@ class Client:
 
         self.info("Starting browser")
         self.br = self.browser = webdriver.Chrome(executable_path="/app/.chromedriver/bin/chromedriver",chrome_options=options) 
+        self.wait = WebDriverWait(self.br, 100)
         self.br.implicitly_wait(10)
         return self
 
@@ -272,6 +276,8 @@ class Client:
         self.dump_screenshot_db()
 
         # Enter email.
+        self.wait.until(EC.presence_of_element_located(By.ID, "identifierId"))
+
         email = self.br.find_element_by_id("identifierId")
         email.send_keys(input("Enter email: "))
         self.br.find_element_by_id("identifierNext").click()
