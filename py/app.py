@@ -192,13 +192,19 @@ class Client:
         self.info("Switching windows.")
         all_windows = set(self.br.window_handles)
         self.info(all_windows)
+
         try:
-            current_window = set([self.br.current_window_handle])
-            self.info(self.br.title)
-            self.info(current_window)
-            other_window = (all_windows - current_window).pop()
-            self.info(other_window)
-            self.br.switch_to.window(other_window)
+            for win in all_windows:
+                self.br.switch_to.window(win)
+                self.info(self.br.title)
+                if self.br.title.startsWith('Sign in - Google Accounts'):
+                    return
+            #current_window = set([self.br.current_window_handle])
+            #self.info(self.br.title)
+            #self.info(current_window)
+            #other_window = (all_windows - current_window).pop()
+            #self.info(other_window)
+            #self.br.switch_to.window(other_window)
             self.sleep()
             self.info(self.br.title)
         except:
