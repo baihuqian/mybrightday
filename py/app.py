@@ -199,7 +199,7 @@ class Client:
                 self.br.switch_to.window(win)
                 self.info(self.br.title)
                 if self.br.title.startsWith("Sign in - Google Accounts"):
-                    return None
+                    return
             #current_window = set([self.br.current_window_handle])
             #self.info(self.br.title)
             #self.info(current_window)
@@ -283,7 +283,11 @@ class Client:
 
         # Focus on the google auth popup.
         self.switch_windows()
-        WebDriverWait(self.br, 100).until(EC.visibility_of_element_located((By.ID, "identifierId")))
+        try:
+            WebDriverWait(self.br, 100).until(EC.visibility_of_element_located((By.ID, "identifierId")))
+        except Exception as exc:
+            self.exception(exc)
+
         self.br.save_screenshot("state/after_login.png")
         self.dump_screenshot_db()
 
