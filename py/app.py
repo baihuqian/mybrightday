@@ -386,11 +386,14 @@ class Client:
     def save_image_api(self, key, timestamp, mime_type):
         year = datetime.datetime.utcfromtimestamp(timestamp).strftime('%Y')
         month = datetime.datetime.utcfromtimestamp(timestamp).strftime('%b')
+        device = os.getenv("DEVICE")
 
-        url = self.ROOT_URL + "remote/v1/attachment?key="+key+"&download=true"
+        url = self.ROOT_URL + "remote/v1/attachment?key="+key+"&download=true&auth=true&device="+device
 
         #Download file
-        resp = requests.get(url, cookies=self.req_cookies, stream=True)
+        coolCookie = {os.getenv("CK_NAME"):os.getenv("CK_VALUE")}
+        headers = {'user-agent': 'Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;), Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;) (gzip)', 'x-titanium-id':'c5a5bca5-43c7-4b8f-b82a-fe1de0e4793c'}
+        resp = requests.get(url, cookies=coolCookie, headers=headers, stream=True)
         if resp.status_code != 200:
             msg = 'Error (%r) downloading %r'
             raise DownloadError(msg % (resp.status_code, url))
@@ -409,7 +412,7 @@ class Client:
     def download_images(self):
         '''Login to tadpoles.com and download all user's images.
         '''
-        try:
+        """   try:
             self.load_cookies_db()
         except FileNotFoundError:
            self.navigate_url(self.HOME_URL)
@@ -419,7 +422,7 @@ class Client:
 
         # Get the cookies ready for requests lib.
         self.requestify_cookies()
-
+        """
         self.get_api()
     
     def main(self):
