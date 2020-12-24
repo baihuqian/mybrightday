@@ -10,5 +10,4 @@ pymongo
 piexif
 pillow
 pytz
-fake-useragent
 google-cloud-storage
