@@ -25,7 +25,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options 
-from fake_useragent import UserAgent as ua
+from fake_useragent import UserAgent
 from selenium.webdriver.common.proxy import *
 from pymongo import MongoClient
 from PIL import Image
@@ -100,6 +100,7 @@ class Client:
 
     def __enter__(self):
         options = Options()
+        ua = UserAgent(cache=False)
         options.add_argument("--headless")
         options.add_argument(f'user-agent={ua.chrome}')
         options.binary_location = "/app/.apt/usr/bin/google-chrome"
