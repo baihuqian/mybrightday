@@ -190,7 +190,7 @@ class Client:
         for s_cookie in self.cookies:
             self.req_cookies[s_cookie["name"]] = s_cookie["value"]
 
-    def switch_windows(self):
+    def switch_windows(self, pageTitle):
         '''Switch to the other window.'''
         self.info("Switching windows.")
         all_windows = set(self.br.window_handles)
@@ -201,7 +201,7 @@ class Client:
                 self.br.switch_to.window(win)
                 self.sleep()
                 self.info(self.br.title)
-                if self.br.title.startswith("Sign in - Google Accounts"): return
+                if self.br.title.startswith(pageTitle): return
             #current_window = set([self.br.current_window_handle])
             #self.info(self.br.title)
             #self.info(current_window)
@@ -285,31 +285,38 @@ class Client:
         self.br.find_element_by_xpath("//img[@data-bind = 'click:loginGoogle']").click()
 
         # Focus on the google auth popup.
-        self.switch_windows()
+        self.switch_windows("Sign in - Google Accounts")
         try:
-            WebDriverWait(self.br, 30).until(EC.visibility_of_element_located((By.ID, "identifierId")))
+            WebDriverWait(self.br, 10).until(EC.visibility_of_element_located((By.ID, "identifierId")))
+            # Enter email.
+            email = self.br.find_element_by_id("identifierId")
+            email.send_keys(input("Enter email: "))
+            self.br.find_element_by_id("identifierNext").click()
+            self.sleep()
+    
+            # Enter password.
+            passwd = self.br.find_element_by_css_selector("input[type='password'][name='password']")
+            passwd.send_keys(getpass("Enter password:"))
+            self.br.find_element_by_id("passwordNext").click()
+            
+            # Enter 2FA pin.
+            #Epin = self.br.find_element_by_id("idvPreregisteredPhonePin")
+            #pin.send_keys(getpass("Enter google verification code: "))
+            #pin.submit()
         except Exception as exc:
+            email = self.br.find_element_by_id("Email")
+            email.send_keys(input("Enter email: "))
+            self.sleep()
+
+            self.br.find_element_by_id("next").click()
+            self.sleep()
+
+            passwd = self.br.find_element_by_id("Passwd")
+            passwd.send_keys(getpass("Enter password:"))
+            self.sleep()
+
+            self.br.find_element_by_id("signIn").click()
             self.exception(exc)
-
-        self.br.save_screenshot("state/after_login.png")
-        self.dump_screenshot_db()
-
-        # Enter email.
-        
-        email = self.br.find_element_by_id("identifierId")
-        email.send_keys(input("Enter email: "))
-        self.br.find_element_by_id("identifierNext").click()
-        self.sleep()
-  
-        # Enter password.
-        passwd = self.br.find_element_by_css_selector("input[type='password'][name='password']")
-        passwd.send_keys(getpass("Enter password:"))
-        self.br.find_element_by_id("passwordNext").click()
-        
-        # Enter 2FA pin.
-        #Epin = self.br.find_element_by_id("idvPreregisteredPhonePin")
-        #pin.send_keys(getpass("Enter google verification code: "))
-        #pin.submit()
 
         self.sleep()
         self.br.save_screenshot("state/after_login.png")
@@ -321,7 +328,7 @@ class Client:
         #self.br.find_element_by_id("submit_approve_access").click()
         
         # Switch back to tadpoles.
-        self.switch_windows()
+        self.switch_windows("Simplifying Childcare")
         
     def write_exif(self, response, timestamp):
         response.raw.decode_content = True
