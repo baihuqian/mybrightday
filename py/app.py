@@ -272,6 +272,7 @@ class Client:
 
         # Focus on the google auth popup.
         self.switch_windows()
+        self.info(self.br.current_url)
         self.br.save_screenshot("state/after_login.png")
         self.dump_screenshot_db()
 
