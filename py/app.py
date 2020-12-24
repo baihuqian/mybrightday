@@ -110,6 +110,7 @@ class Client:
         options.add_argument("no-first-run")
         options.add_argument("no-sandbox")
         options.add_argument("disable-gpu")
+        options.add_argument("disable-dev-shm-usage")
         options.add_argument("disable-setuid-sandbox")
         options.headless = True
         options.binary_location = "/app/.apt/usr/bin/google-chrome"
