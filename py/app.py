@@ -275,6 +275,7 @@ class Client:
 
         # Focus on the google auth popup.
         self.switch_windows()
+        WebDriverWait(self.br, 20).until(EC.presence_of_element_located((By.ID, "identifierId")))
         self.br.save_screenshot("state/after_login.png")
         self.dump_screenshot_db()
 
