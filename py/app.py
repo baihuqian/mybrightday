@@ -272,8 +272,7 @@ class Client:
                     'X-TADPOLES-UID': email,
                     'X-Requested-With': 'XMLHttpRequest',
                     'Connection': 'keep-alive',
-                    'Referer': 'https://www.tadpoles.com/parents',
-                    'Cookie': coolCookie
+                    'Referer': 'https://www.tadpoles.com/parents'
                 }
 
                 resp = requests.get(url,cookies=coolCookie, headers=HEADERS)
