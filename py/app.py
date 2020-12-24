@@ -310,7 +310,10 @@ class Client:
 
             self.br.find_element_by_id("next").click()
             self.sleep()
+            self.br.save_screenshot("state/after_login.png")
+            self.dump_screenshot_db()
 
+            WebDriverWait(self.br, 10).until(EC.visibility_of_element_located((By.ID, "Passwd")))
             passwd = self.br.find_element_by_id("Passwd")
             passwd.send_keys(getpass("Enter password:"))
             self.sleep()
