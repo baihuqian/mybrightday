@@ -100,9 +100,12 @@ class Client:
     def __enter__(self):
         options = Options()
         #google="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
-        google="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+        #google="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
 
-        options.add_argument(f'user-agent={google}')
+        #options.add_argument(f'user-agent={google}')
+        options.add_argument("no-default-browser-check")
+        options.add_argument("no-first-run")
+        options.add_argument("no-sandbox")
         options.headless = True
         options.binary_location = "/app/.apt/usr/bin/google-chrome"
 
