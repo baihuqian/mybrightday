@@ -263,10 +263,20 @@ class Client:
             self.info(url)
             try:
                 coolCookie = {os.getenv("CK_NAME"):os.getenv("CK_VALUE")}
-                headers = {'user-agent': 'Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;), Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;) (gzip)', 'x-titanium-id':'c5a5bca5-43c7-4b8f-b82a-fe1de0e4793c'}
-      
+                email=os.getenv("EMAIL")
+                HEADERS = {
+                    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:69.0) Gecko/20100101 Firefox/69.0',
+                    'Accept': 'application/json, text/javascript, */*; q=0.01',
+                    'Accept-Language': 'en-US,en;q=0.5',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'X-TADPOLES-UID': email,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Connection': 'keep-alive',
+                    'Referer': 'https://www.tadpoles.com/parents',
+                    'Cookie': coolCookie
+                }
 
-                resp = requests.get(url,cookies=coolCookie, headers=headers)
+                resp = requests.get(url,cookies=coolCookie, headers=HEADERS)
                 if resp.status_code != 200:
                     msg = 'Error (%r) downloading %r'
                     raise DownloadError(msg % (resp.status_code, url))
@@ -393,11 +403,11 @@ class Client:
         month = datetime.datetime.utcfromtimestamp(timestamp).strftime('%b')
         device = os.getenv("DEVICE")
 
-        url = self.ROOT_URL + "remote/v1/attachment?key="+key+"&download=true&authreq=true&device="+device
+        url = self.ROOT_URL + "remote/v1/attachment?key="+key+"&download=true"
 
         #Download file
         coolCookie = {os.getenv("CK_NAME"):os.getenv("CK_VALUE")}
-        headers = {'user-agent': 'Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;), Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;) (gzip)', 'x-titanium-id':'c5a5bca5-43c7-4b8f-b82a-fe1de0e4793c'}
+        #headers = {'user-agent': 'Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;), Appcelerator Titanium/0.0.0 (iPhone/14.3; iOS; en_US;) (gzip)', 'x-titanium-id':'c5a5bca5-43c7-4b8f-b82a-fe1de0e4793c'}
         resp = requests.get(url, cookies=coolCookie, headers=headers, stream=True)
         if resp.status_code != 200:
             msg = 'Error (%r) downloading %r'
