@@ -257,7 +257,7 @@ class Client:
             end_string="&latest_event_time="+str(int(time.mktime(end_time.timetuple())))
             device = os.getenv("DEVICE")
 
-            num_events="&num_events=300&client=dashboard&device="+device
+            num_events="&num_events=300&client=dashboard&authreq=true&device="+device
 
             url = self.LIST_BASE_URL+start_string+end_string+num_events
             self.info(url)
@@ -393,7 +393,7 @@ class Client:
         month = datetime.datetime.utcfromtimestamp(timestamp).strftime('%b')
         device = os.getenv("DEVICE")
 
-        url = self.ROOT_URL + "remote/v1/attachment?key="+key+"&download=true&auth=true&device="+device
+        url = self.ROOT_URL + "remote/v1/attachment?key="+key+"&download=true&authreq=true&device="+device
 
         #Download file
         coolCookie = {os.getenv("CK_NAME"):os.getenv("CK_VALUE")}
