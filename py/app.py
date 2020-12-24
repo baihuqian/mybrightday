@@ -100,6 +100,7 @@ class Client:
     def __enter__(self):
         options = Options()
         options.add_argument("--headless")
+        options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36")
         options.binary_location = "/app/.apt/usr/bin/google-chrome"
 
         self.info("Starting browser")
@@ -272,7 +273,6 @@ class Client:
 
         # Focus on the google auth popup.
         self.switch_windows()
-        self.info(self.br.current_url)
         self.br.save_screenshot("state/after_login.png")
         self.dump_screenshot_db()
 
