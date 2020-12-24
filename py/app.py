@@ -106,7 +106,6 @@ class Client:
 
         self.info("Starting browser")
         self.br = self.browser = webdriver.Chrome(executable_path="/app/.chromedriver/bin/chromedriver",chrome_options=options) 
-        self.wait = WebDriverWait(self.br, 100)
         self.br.implicitly_wait(10)
         return self
 
