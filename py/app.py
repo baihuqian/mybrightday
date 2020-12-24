@@ -199,7 +199,7 @@ class Client:
                 self.br.switch_to.window(win)
                 self.sleep()
                 self.info(self.br.title)
-                if self.br.title.startsWith("Sign in - Google Accounts"): return
+                if self.br.title.startswith("Sign in - Google Accounts"): return
             #current_window = set([self.br.current_window_handle])
             #self.info(self.br.title)
             #self.info(current_window)
