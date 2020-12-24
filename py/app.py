@@ -257,12 +257,12 @@ class Client:
             end_string="&latest_event_time="+str(int(time.mktime(end_time.timetuple())))
             device = os.getenv("DEVICE")
 
-            num_events="&num_events=300&client=dashboard&authreq=true&device="+device
+            num_events="&num_events=300&client=dashboard"
 
             url = self.LIST_BASE_URL+start_string+end_string+num_events
             self.info(url)
             try:
-                coolCookie = {os.getenv("CK_NAME"):os.getenv("CK_VALUE")}
+                coolCookie = os.getenv("COOKIE")
                 email=os.getenv("EMAIL")
                 HEADERS = {
                     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:69.0) Gecko/20100101 Firefox/69.0',
@@ -272,10 +272,11 @@ class Client:
                     'X-TADPOLES-UID': email,
                     'X-Requested-With': 'XMLHttpRequest',
                     'Connection': 'keep-alive',
-                    'Referer': 'https://www.tadpoles.com/parents'
+                    'Referer': 'https://www.tadpoles.com/parents',
+                    'cookie': coolCookie
                 }
 
-                resp = requests.get(url,cookies=coolCookie, headers=HEADERS)
+                resp = requests.get(url, headers=HEADERS)
                 if resp.status_code != 200:
                     msg = 'Error (%r) downloading %r'
                     raise DownloadError(msg % (resp.status_code, url))
