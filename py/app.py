@@ -426,7 +426,7 @@ class Client:
         if 'Content-Disposition' in resp.headers:
             filename_parts = ['/',year, month, resp.headers['Content-Disposition'].split("filename=")[1]]
         elif 'x-guploader-uploadid' in resp.headers:
-            filename_parts = ['/',year, month, resp.headers['x-guploader-uploadid'], '.', mime_type.split("/")[1]]
+            filename_parts = ['/',year, month, resp.headers['x-guploader-uploadid']+'.'+mime_type.split("/")[1]]
         else:
             return
         
