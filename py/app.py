@@ -423,7 +423,11 @@ class Client:
             msg = 'Error (%r) downloading %r'
             raise DownloadError(msg % (resp.status_code, url))
 
-        filename_parts = ['/',year, month, resp.headers['x-guploader-uploadid']]
+        if 'Content-Disposition' in resp.headers:
+            filename_parts = ['/',year, month, resp.headers['Content-Disposition'].split("filename=")[1]]
+        else:
+            filename_parts = ['/',year, month, resp.headers['x-guploader-uploadid']]
+        
         filename = join(*filename_parts)
         
         if mime_type == 'image/jpeg' or mime_type == 'image/png':
