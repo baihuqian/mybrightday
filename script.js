@@ -11,7 +11,6 @@ Run this function in the console of the My Bright Day dashboard.
 */
 
 async function download(startTime, endTime) {
-
     const baseUrl = "https://mybrightday.brighthorizons.com/remote/v1/";
     const listPath = "events";
     const imgPath = "obj_attachment";
@@ -101,8 +100,8 @@ async function download(startTime, endTime) {
 
                         // Append comment to filename
                         if("comment" in elem && elem["comment"] != null) {
-                            var name = filename.substring(0, filename.lastIndexOf('.'));
-                            var ext = filename.split('.').pop();
+                            let name = filename.substring(0, filename.lastIndexOf('.'));
+                            let ext = filename.split('.').pop();
                             filename = `${name}-${elem["comment"].replace(/[/\\?%*:|"<>]/g, '-')}.${ext}`;
                         }
 
@@ -113,8 +112,8 @@ async function download(startTime, endTime) {
                     if (blob != null) {
                         count += 1;
                         console.log(`Download count: ${count}. For ${key} with filename ${filename}`)
-                        var url = window.URL.createObjectURL(blob);
-                        var a = document.createElement("a");
+                        let url = window.URL.createObjectURL(blob);
+                        let a = document.createElement("a");
                         a.href = url;
                         a.download = filename;
                         document.body.appendChild(a);
